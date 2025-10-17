@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>{{ exam.title }}</title>
+     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>{{ exam.title }}</h2>
+
+    <!-- ⏱ Timer Display -->
+    <div class="alert alert-info text-center">Time Remaining: <span id="timer"></span></div>
+ 
+    <form method="POST">
+      {% csrf_token %}
+      {% for question in questions %}
+        <p>{{ forloop.counter }}. {{ question.text }}</p>
+
+	  <label>
+	     <input type="radio" name="question_{{ question.id }}" value="A"> 
+	     A. {{ question.option_a }}
+	  </label><br>
+	  
+	  <label>
+             <input type="radio" name="question_{{ question.id }}" value="B"> 
+	     B. {{ question.option_b }}
+	  </label><br>
+	  
+	  <label>
+             <input type="radio" name="question_{{ question.id }}" value="C"> 
+	     C. {{ question.option_c }}
+	  </label><br>
+	  
+	  <label>
+             <input type="radio" name="question_{{ question.id }}" value="D"> 
+	     D. {{ question.option_d }}
+	  </label><br> 
+      {% endfor %}
+
+      <button type="submit" class="btn btn-success">Submit Exam</button>
+    </form>
+</div>
+
+<!-- ⏳ Timer Script -->
+<script>
+    let timeLeft = {{ exam.duration }} * 60;
+    const timer = setInterval(() => {
+        if (timeLeft <= 0) {
+	     clearInterval(timer);
+	     document.querySelector('form').submit();
+	}
+	const minutes = Math.floor(timeLeft / 60);
+	const seconds = timeLeft % 60;
+	document.getElementById('timer').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+	timeLeft--;
+    }, 1000);
+</script>
+</body>
+</html>

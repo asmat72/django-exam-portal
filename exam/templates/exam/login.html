@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>Login</title>
+     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+     <div class="container mt-5">
+         <h2 class="text-center mb-4">Login</h2>
+	 <form method="post">
+	   {% csrf_token %}
+	   <div class="mb-3">
+	      <label for="username" class="form-label">Username</label>
+	      <input type="text" name="username" class="form-control" id="username">
+	   </div>
+	   <div class="mb-3">
+	      <label for="password" class="form-label">Password</label>
+	      <input type="password" name="password" class="form-control" id="password">
+	   </div>
+	   <button type="submit" class="btn btn-success">Login</button>
+	 </form>
+	 <p class="text-center mt-3">New user? <a href="{% url 'register' %}">Register here</a></p>
+     </div>
+</body>
+</html>

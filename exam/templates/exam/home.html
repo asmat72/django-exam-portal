@@ -1,0 +1,15 @@
+{% extends 'exam/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Welcome to the Online Exam Portal</h2>
+    <p>This is the home page. You can browse exams, take tests, and view your results.</p>
+
+    <div class="mt-3">
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+	<a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
+	<a href="{% url 'result' %}" class="btn btn-info">View Result</a>
+    </div>
+</div>
+{% endblock %}

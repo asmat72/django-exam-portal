@@ -1,0 +1,15 @@
+{% extends 'exam/base.html' %}
+
+{% block title %}Available Exams{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Available Exams</h2>
+<ul class="list-group">
+   {% for exam in exams %}
+     <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ exam.title }} - {{ exam.date }}
+	<a href="{% url 'attempt_exam' exam.id %}" class="btn btn-primary btn-sm">Start</a>
+     </li>
+   {% endfor %}
+</ul>
+{% endblock %}

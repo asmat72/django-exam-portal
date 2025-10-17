@@ -1,0 +1,47 @@
+{% extends 'exam/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Welcome, {{ request.user.username }}</h2>
+    <div style="text-align: right; margin-bottom: 10px;">
+	<a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- ✅ Available Exams -->
+    <h4 class="mt-4">Available Exams</h4>
+    <ul class="list-group">
+        {% for exam in exams %}
+	<li class="list-group-item d-flex justify-content-between align-items-center">
+	    {{ exam.title }}
+	    <a href="{% url 'exam_detail' exam.id %}" class="btn btn-primary">Take Exam</a>
+	</li>
+	{% endfor %}
+    </ul>
+
+    <!-- ✅ Your Results -->
+    <h4 class="mt-5">Your Results</h4>
+    <table class="table table-bordered">
+      <tr>
+        <th>Exam</th>
+	<th>Score</th>
+	<th>Total</th>
+	<th>Accuracy</th>
+	<th>Submitted At</th>
+      </tr>
+      {% for result in results %}  
+        <tr>
+	  <td>{{ result.exam.title }}</td>
+	  <td>{{ result.score }}</td>
+	  <td>{{ result.total }}</td>
+	  <td>{{ result.submitted_at }}</td>
+	</tr>
+	{% for exam in exams %}
+	  {% if exam.id %}
+	    <a href="{% url 'exam_detail' exam.id %}">Start Exam</a>
+	  {% else %}
+	    <span>Invalid exam</span>
+	  {% endif %}
+	{% endfor %}
+      {% endfor %}
+    </table>
+</div>
+{% endblock %}

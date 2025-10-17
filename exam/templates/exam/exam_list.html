@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Exams</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Available Exams</h2>
+	<ul>
+	    {% for exam in exams %}
+	        <li>
+		    <a href="{% url 'take_exam' exam.id %}">{{ exam.title }}</a>
+		</li>
+            {% endfor %}
+	</ul>
+    </div>
+</body>
+</html>
