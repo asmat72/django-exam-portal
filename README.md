@@ -29,56 +29,57 @@
 - 📁 Project Structure:
     
       - ├── exam_portal/              # Main Django app
-      - │   ├── migrations/           # Database migrations
-      - │   ├── templates/            # HTML templates
-      - │   │   ├── base.html
-      - │   │   ├── login.html
-      - │   │   ├── register.html
-      - │   │   ├── dashboard.html
-      - │   │   └── exam.html
-      - │   ├── static/               # CSS, JS, Bootstrap assets
-      - │   ├── admin.py              # Admin interface setup
-      - │   ├── models.py             # Database models
-      - │   ├── views.py              # View logic
-      - │   ├── urls.py               # URL routing
-      - │   └── forms.py              # Django forms
-      - ├── db.sqlite3                # SQLite database
-      - ├── manage.py                 # Django management script
-      - └── README.md                 # Project documentation
+      -      ├── exam/
+      -      │    ├── migrations/           # Database migrations
+      -      │    ├── templates/            # HTML templates
+      -      │    │   ├── base.html
+      -      │    │   ├── login.html
+      -      │    │   ├── register.html
+      -      │    │   ├── dashboard.html
+      -      │    │   └── exam.html
+      -      │    ├── static/               # CSS, JS, Bootstrap assets
+      -      │    ├── admin.py              # Admin interface setup
+      -      │    ├── models.py             # Database models
+      -      │    ├── views.py              # View logic
+      -      │    ├── urls.py               # URL routing
+      -      │    └── forms.py              # Django forms
+      -      ├── db.sqlite3                # SQLite database
+      -      ├── manage.py                 # Django management script
+      -      └── README.md                 # Project documentation
 
 - 🧩 Custom Dataset Explanation:
      - To support exams, questions, answers, and student results, define these models in models.py:
         1. Exam:
            - Stores exam metadata.
-             - class Exam(models.Model):
-             - title = models.CharField(max_length=100)
-             - duration = models.IntegerField(help_text="Duration in minutes")
+           -   class Exam(models.Model):
+           -   title = models.CharField(max_length=100)
+           -   duration = models.IntegerField(help_text="Duration in minutes")
               
         2. Question:
            - Stores multiple-choice questions linked to an exam.
              - class Question(models.Model):
-               - exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-               - text = models.TextField()
-               - option1 = models.CharField(max_length=200)
-               - option2 = models.CharField(max_length=200)
-               - option3 = models.CharField(max_length=200)
-               - option4 = models.CharField(max_length=200)
-               - correct_option = models.IntegerField(choices=[(1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')])
+             -     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+             -     text = models.TextField()
+             -     option1 = models.CharField(max_length=200)
+             -     option2 = models.CharField(max_length=200)
+             -     option3 = models.CharField(max_length=200)
+             -     option4 = models.CharField(max_length=200)
+             -     correct_option = models.IntegerField(choices=[(1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')])
 
         3. Student:
            - Extends Django’s user model with student-specific fields.
              - class Student(models.Model):
-               - user = models.OneToOneField(User, on_delete=models.CASCADE)
-               - roll_number = models.CharField(max_length=20)
+             -     user = models.OneToOneField(User, on_delete=models.CASCADE)
+             -     roll_number = models.CharField(max_length=20)
 
         4. Result:
            - Stores student performance data.
              - class Result(models.Model):
-               - student = models.ForeignKey(Student, on_delete=models.CASCADE)
-               - exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-               - score = models.IntegerField()
-               - accuracy = models.FloatField()
-               - rank = models.IntegerField()
+             -     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+             -     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+             -     score = models.IntegerField()
+             -     accuracy = models.FloatField()
+             -     rank = models.IntegerField()
 
 - 🔗 Dataset Link:
      - If you have a dataset file (CSV, JSON, etc.) containing questions, answers, and student records, you can import it using Django’s manage.py shell or a custom script. Let me know if you'd like help writing that script!
